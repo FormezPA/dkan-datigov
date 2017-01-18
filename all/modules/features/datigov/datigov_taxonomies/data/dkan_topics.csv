@@ -1,0 +1,120 @@
+authority_code,term,description,icon_type,topic_icon,provenance,sinonimi,weight
+AGRI,"Agricoltura, pesca, silvicoltura e prodotti alimentari","This concept identifies datasets covering such domains as agriculture, fisheries, forestry or food.",font,xe955,OP,"agri
+agricoltura
+agricoltura-e-allevamento
+agricoltura-e-sviluppo-rurale
+agricoltura-pesca-politiche-forestali-e-alimentari
+animali
+settore-primario
+agricoltura-e-pesca",1
+ECON,Economia e finanze,This concept identifies datasets covering such domains as economy or finance.,font,xe97d,OP,"Economia
+attivita-produttive
+bilanci
+commercio-e-consumatori
+econ
+economia
+economia-finanze-e-tributi
+finanza-e-controlli
+imprese
+lavoro
+lavoro-e-formazione
+sardegna-turismo
+sviluppo-economico-formazione-e-lavoro
+terzo-settore
+turismo",2
+EDUC,"Istruzione, cultura e sport","This concept identifies datasets covering such domains as education, culture or sport.",font,xe932,OP,"conoscenza
+cultura
+culturaeturismo
+educ
+educazione-e-istruzione
+istruzione
+istruzione-cultura-e-sport
+istruzione-e-lavoro
+istruzione-e-sport
+istruzione-formazione-e-diritto-allo-studio
+istruzione1
+ravenna-2019
+ricerca-e-innovazione
+sardegna-digital-library
+scuola
+sport
+turismo-e-sport
+turismo-e-tempo-libero
+turismo-sporto-e-tempo-libero",3
+ENER,Energia,This concept identifies datasets covering the domain of energy.,font,xe940,OP,"ener
+energia",4
+ENVI,Ambiente,This concept identifies datasets covering the domain of environment.,font,xe92f,OP,"ambiente
+ambiente-e-meteo
+ambiente-e-territorio
+ambientenaturale
+cartografia
+cat-meteo
+clima
+dati-ambientali
+dati-geografici
+difesa-suolo
+envi
+foreste-e-parchi
+geodatabase
+geoportale-sardegna
+gestione-del-territorio
+meteo
+pianificazione-territoriale-comunale
+superfici-territoriali
+territorio
+territorio-ambiente",5
+GOVE,Governo e settore pubblico,This concept identifies datasets covering such domains as government or public sector.,font,xe92b,OP,"Trasparenza
+agenda-digitale-dell-umbria
+amministrazione
+amministrazione-comunale
+amministrazione-trasparente
+conti-pubblici-territoriali
+fesr2007-2013
+gove
+government-e-settore-pubblico
+governo-e-settore-pubblico
+opere-pubbliche
+por-fesr-2014-2020
+pubblica-amministrazione
+urbanistica",6
+HEAL,Salute,This concept identifies datasets covering the domain of health.,font,xe94f,OP,"heal
+promozione-della-salute
+salute
+salute-e-sanita
+salute-e-sicurezza
+sanita
+sanita-e-servizi-sanitari",7
+INTR,Tematiche internazionali,This concept identifies datasets covering the domain of international issues.,font,xe925,OP,intr,8
+JUST,"Giustizia, sistema giuridico e sicurezza pubblica","This concept identifies datasets covering such domains as justice, legal system or public safety.",font,xe92a,OP,"emergenza-e-sicurezza
+giustizia-e-sicurezza
+just
+Sicurezza",9
+REGI,Regioni e città,This concept identifies datasets covering such domains as regions or cities.,font,xe929,OP,regi,10
+SOCI,Popolazione e società,This concept identifies datasets covering such domains as population or society.,font,xe965,OP,"dati-demografici
+dati-statistici
+dati-urbanistici
+demografia
+elettorale
+elezioni
+elezioni-e-attivita-politica
+incidenti-stradali
+lavoro-e-politiche-sociali
+politica
+popolazione-e-societa
+popolazione-e-sviluppo-demografico
+protezione-civile
+puglia-sociale
+soci
+sociale
+societa
+statistica
+welfare",11
+TECH,Scienza e tecnologia,This concept identifies datasets covering such domains as science or technology.,font,xe952,OP,"scienza-e-tecnologia
+Tech",12
+TRAN,Trasporti,This concept identifies datasets covering the domain of transport.,font,xe930,OP,"infrastrutture-e-trasporti
+mobilita
+mobilita-e-sicurezza
+mobilita-e-trasporti
+tran
+trasporti
+viabilita",13

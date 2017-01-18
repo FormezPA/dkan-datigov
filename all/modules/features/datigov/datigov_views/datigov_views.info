@@ -1,0 +1,14 @@
+name = DatiGov Views
+core = 7.x
+package = DatiGov
+version = 7.x-1.0-beta9
+project = datigov_views
+dependencies[] = ctools
+dependencies[] = leaflet
+dependencies[] = leaflet_views
+dependencies[] = views
+dependencies[] = views_content
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = dataset_view
+features[views_view][] = resources

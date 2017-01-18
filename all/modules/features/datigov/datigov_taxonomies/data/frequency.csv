@@ -1,0 +1,23 @@
+authority_code,term,description,sinonimi,weight
+ANNUAL,annuale,,annual,0
+ANNUAL_2,semestrale,,semiannual,0
+ANNUAL_3,tre volte all'anno,,three times a year,0
+BIENNIAL,biennale,,biennial,0
+BIMONTHLY,bimestrale,,bimonthly,0
+BIWEEKLY,quindicinale,,biweekly,0
+CONT,continuo / continua,,continuous,0
+DAILY,quotidiano / quotidiana,,daily,0
+DAILY_2,due volte al giorno,,twice a day,0
+IRREG,irregolare,,irregular,0
+MONTHLY,mensile,,monthly,0
+MONTHLY_2,bimensile,,semimonthly,0
+MONTHLY_3,tre volte al mese,,three times a month,0
+NEVER,mai,,never,0
+OTHER,altro,,other,0
+QUARTERLY,trimestrale,,quarterly,0
+TRIENNIAL,triennale,,triennial,0
+UNKNOWN,sconosciuto / sconosciuta,,unknown,0
+UPDATE_CONT,in continuo aggiornamento,,,0
+WEEKLY,settimanale,,weekly,0
+WEEKLY_2,bisettimanale,,semiweekly,0
+WEEKLY_3,tre volte a settimana,,three times a week,0

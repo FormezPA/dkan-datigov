@@ -1,0 +1,11 @@
+name = DatiGov DKAN Harvest
+description = Additional DKAN harvester for DatiGov.it
+core = 7.x
+package = DatiGov.it
+dependencies[] = migrate
+dependencies[] = dkan_migrate_base
+dependencies[] = dkan_harvest
+dependencies[] = dkan_harvest_ckan
+
+files[] = datigov_harvest.migrate.inc
+files[] = includes/datigovharvestsynonyms.class.inc

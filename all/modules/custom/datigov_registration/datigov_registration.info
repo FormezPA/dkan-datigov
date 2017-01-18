@@ -1,0 +1,16 @@
+name = DatiGov Registration module
+description = Provides user validation and registration
+package = DatiGov
+core = 7.x
+
+dependencies[] = views
+
+stylesheets[all][] = style.css
+
+configure = admin/config/datigov_registration
+
+files[] = datigov_registration.admin.inc
+files[] = datigov_registration.forms.inc
+files[] = datigov_registration.module
+files[] = datigov_registration.pages.inc
+files[] = datigov_registration.views_default.inc

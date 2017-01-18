@@ -1,0 +1,26 @@
+#block-datigov-registration-datigov-registration-user-links {
+    float: right
+}
+
+#block-datigov-registration-datigov-registration-user-links li {
+    list-style: none;
+    float: left;
+    margin-left: 20px;
+}
+
+#block-datigov-registration-datigov-registration-user-links li a {
+    margin-left: 10px;
+}
+
+#block-datigov-registration-datigov-registration-user-links li i {
+    margin-right: 10px;
+}
+
+.fa-sign-in {
+    font-size: 17px
+}
+
+/* Hide existing fields which won't be used anymore */
+#node_dataset_form_group_other_fields {
+    display: none;
+}

@@ -1,0 +1,7 @@
+name = DatiGov Settings
+description = Configurazione di DatiGov 
+core = 7.x
+package = DatiGov
+version = 7.x-1.x
+dependencies[] = strongarm
+

@@ -1,0 +1,16 @@
+name = DatiGov Privacy
+core = 7.x
+package = DatiGov
+version = 7.x-1.0-beta4
+project = datigov_privacy
+dependencies[] = ctools
+dependencies[] = dkan_sitewide
+dependencies[] = eu_cookie_compliance
+dependencies[] = features
+dependencies[] = strongarm
+dependencies[] = uuid_features
+__drupal_alter_by_ref[][node][page] = page
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = eu_cookie_compliance_domain
+features[variable][] = eu_cookie_compliance_it

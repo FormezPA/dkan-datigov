@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Datigov Slider feature.
+ */
+
+include_once 'datigov_slider.features.inc';

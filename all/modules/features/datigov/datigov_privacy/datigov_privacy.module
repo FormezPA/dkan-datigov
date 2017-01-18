@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the datigov_privacy feature.
+ */
+
+include_once 'datigov_privacy.features.inc';

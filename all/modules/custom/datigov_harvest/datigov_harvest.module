@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * The module extends the DKAN Harvester to allows other schemas.
+ */
+
+/**
+ * Implements hook_harvest_source_types().
+ */
+function datigov_harvest_harvest_source_types() {
+
+  return array(
+    'harvest_ckan_datigov' => array(
+      'machine_name' => 'harvest_ckan_datigov',
+      'label' => 'CKAN DatiGov v3 (JSON)',
+      'cache callback' => '_dkan_harvest_ckan_cache_pkg',
+      'migration class' => 'HarvestMigrationCKANDatiGov',
+    ),
+    'harvest_ckan_datigov_v1' => array(
+      'machine_name' => 'harvest_ckan_datigov_v1',
+      'label' => 'CKAN Datigov v1 (JSON)',
+      'cache callback' => '_dkan_harvest_ckan_cache_pkg',
+      'migration class' => 'HarvestMigrationCKANDatigov_v1',
+    ),  
+    'harvest_dcat_datigov' => array(
+      'machine_name' => 'harvest_dcat_datigov',
+      'label' => 'DCAT DatiGov (JSON)',
+      'cache callback' => '_dkan_harvest_dcatap_cache',
+      'migration class' => 'HarvestMigrationDCATAPDatiGov',
+    ),
+  );
+}

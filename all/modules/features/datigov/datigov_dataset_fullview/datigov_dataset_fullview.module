@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Datigiv dataset fullview feature.
+ */
+
+include_once 'datigov_dataset_fullview.features.inc';

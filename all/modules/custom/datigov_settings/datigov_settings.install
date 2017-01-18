@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function datigov_settings_install() {
+  
+  // change the allowed files type from
+  // field_upload
+  // field_link_remote_file
+  // csv, html, xls, json, xlsx, doc, docx, rdf, txt, jpg, png, gif, tiff, pdf, odf, ods, odt, tsv, geojson, xml, zip, 7z, kml, kmz, odp
+}

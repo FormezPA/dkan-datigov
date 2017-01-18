@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the datigov_regional feature.
+ */
+
+include_once 'datigov_regional.features.inc';

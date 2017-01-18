@@ -1,0 +1,908 @@
+<?php
+
+/**
+ * @file
+ * Performs Registration form submit alter
+ */
+
+module_load_include('inc', 'datigov_registration', 'datigov_registration.forms');
+module_load_include('inc', 'datigov_registration', 'datigov_registration.pages');
+
+/**
+ * Implements hook_views_api().
+ */
+function datigov_registration_views_api() {
+
+  // Tell Drupal that we're using Views API v3.0
+  return array('api' => 3.0);
+}
+
+/**
+ * Define the URLs for the menu, defining mappings between menu items and URLs.
+ *
+ * @return array
+ */
+function datigov_registration_menu() {
+
+  $items = array();
+
+  // First step of the register process which will display the check for Organisation form
+  $items['datigov/register'] = array(
+    'title' => t('Register user'),
+    // Use Drupal's built-in function loading the form defined in the 'page arguments'
+    'page callback' => 'datigov_registration_user_register_page',
+//    'page arguments' => array('datigov_registration_user_register_page'),
+    // 'page arguments' => array('my_module_my_form'),
+    // This page is accessible by any user (anonymous or authenticated).
+    'access callback' => TRUE
+  );
+
+  $items['datigov/my-datasets'] = array(
+    'title' => t('My Datasets'),
+    'page callback' => 'datigov_registration_my_datasets_page',
+    'access callback' => 'user_is_logged_in'
+  );
+
+  // The user activation link (sent to the responsible person to activate a registering user.
+  // We cannot use %token down here, because Drupal would interpret it as an entity
+  // instead of a value.
+  $items['user/%user/activate/confirm/%'] = array(
+    'title' => 'Confirm account activation',
+    'page callback' => 'datigov_registration_activation_confirm',
+    // pass to the above function the 1st (%user) and 4th (%token) arguments from the URL.
+    'page arguments' => array(1, 4),
+    'file' => 'datigov_registration.pages.inc',
+    // This page is accessible by any user (anonymous or authenticated).
+    'access callback' => TRUE
+  );
+
+  $items['admin/config/datigov_registration'] = array(
+    'title' => 'Datigov Registration',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('datigov_registration_settings_form'),
+    'access arguments' => array('administer datigov_registration'),
+    'file' => 'datigov_registration.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function datigov_registration_block_info() {
+  $blocks = array();
+
+  $blocks['datigov_registration_user_links'] = array(
+    'info' => t('Registration user links'),
+    'status' => TRUE,
+    'region' => 'header',
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function datigov_registration_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'datigov_registration_user_links':
+      $block['subject'] = '';
+      $block['content'] = _datigov_registration_user_links_content();
+      break;
+  }
+  return $block;
+}
+
+function _datigov_registration_user_links_content() {
+
+  global $user;
+
+  $output = '';
+
+  if ($user->uid == 0) {
+
+    $output .= '<li class="login">' . t('<a href="@url"><i class="fa fa-sign-in"></i> Login</a>', array('@url' => '/datigov/register')) . '</li>';
+//    $output .= '<li class="register">' . t('<a href="@url"><i class="fa fa-users"></i> Register</a>', array('@url' => '/register')) . '</li>';
+
+  }
+  else {
+
+    $output .= '<li class="datasets">' . t('<a href="@url"><i class="fa fa-cubes"></i> I miei dataset</a>', array('@url' => '/datigov/my-datasets')) . '</li>';
+//    $output .= '<li class="my-account">' . t('<a href="@url"><i class="fa fa-user"></i> Il mio account</a>', array('@url' => '/user')) . '</li>';
+    $output .= '<li class="logout">' . t('<a href="@url"><i class="fa fa-sign-out"></i> Logout</a>', array('@url' => '/user/logout')) . '</li>';
+
+  }
+
+  return '<ul>' . $output . '</ul>';
+}
+
+/**
+ * Set in {@see datigov_registration_menu}, this is the callback for the form.
+ * It returns an array of form elements.
+ *
+ * @param $form
+ * @param $form_state
+ *
+ * @return array The array of form elements.
+ */
+function datigov_registration_user_register_page() {
+
+  // Check if there's a logged on user.
+  global $user;
+
+  if ($user->uid != 0) {
+    // Redirect a logged on user to the user edit form.
+    drupal_goto('user/' . $user->uid . '/edit');
+  }
+
+  $form['user_register'] = drupal_get_form('datigov_registration_user_register_form');
+  $form['user_register']['#weight'] = 10;
+
+  // If there's no previous button in the registration form, we also display the login.
+  if (!isset($form['user_register']['prev'])) {
+    $form['user_login'] = drupal_get_form('user_login');
+    $form['user_login']['#weight'] = 0;
+  }
+
+//  dpm($form['user_register']);
+
+
+//  // Start building the registration form.
+//  $form = array(
+//    'user_login' => drupal_get_form('user_login'),
+//    'user_register' => $user_register_form
+//  );
+
+  // Return the form fields array.
+  return $form;
+}
+
+///**
+// * Validate the form by calling {@link form_set_error} if there's any validation error.
+// *
+// * @param $form
+// * @param $form_state
+// */
+//function datigov_registration_user_register_form_validate($form, &$form_state) {
+//
+//  if (isset($form_state['step'])) {
+//
+//    if ($form_state['step'] == 1) {
+//      // ??? (should we validate the e-mail choice?, for example did the user select one e-mail)
+//    }
+//    // Validate step 2 (user registration data, such as username).
+//    elseif ($form_state['step'] == 2) {
+//
+//      if (!valid_email_address($form_state['values']['email'])) {
+//        form_set_error('email', t('Invalid Email address'));
+//      }
+//
+//      if (user_load_by_mail($form_state['values']['email'])) {
+//        form_set_error('email', t('Email provided is already registered before.'));
+//      }
+//
+//      if (user_load_by_name($form_state['values']['username'])) {
+//        form_set_error('username', t('Username already exists.'));
+//      }
+//
+//    }
+//
+//  }
+//  else {
+//
+//    $ws_ref_response = drupal_http_request('http://www.indicepa.gov.it/public-ws/WR01_REF.php',
+//      array(
+//        'method' => 'POST',
+//        'headers' => array('Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',),
+//        'data' => format_string('AUTH_ID=RS6Y8X9W&COD_AMM=!COD_AMM', array('!COD_AMM' => $form_state['values']['cod_amm'])),
+//      )
+//    );
+//
+//    $ws_ref_response_data = json_decode($ws_ref_response->data);
+//    $ws_ref_valid = isset($ws_ref_response_data->result) && $ws_ref_response_data->result->cod_err == 0;
+//
+//    // Display an error message if the remote service returned an error.
+//    if (!$ws_ref_valid) {
+//      form_set_error('cod_amm', t('!desc_err <span style="font-size:smaller;">(Error !cod_err)</span>', array(
+//        '!cod_err' => $ws_ref_response_data->cod_err,
+//        '!desc_err' => $ws_ref_response_data->desc_err
+//      )));
+//      return;
+//    }
+//
+//    // Set the reference e-mails, they'll be use in building the step 1.
+//    $form_state['storage']['references'] = array();
+//    foreach ($ws_ref_response_data->data as $key => $reference) {
+//      if (isset($reference->mail_ref) && valid_email_address($reference->mail_ref)) {
+//        $form_state['storage']['references'][] = $reference;
+//      }
+//    }
+//
+//    // // valid if no error received and we have at least one reference with email address defined
+//    if (count($form_state['storage']['references']) == 0) {
+//      form_set_error('cod_amm', t('No references email addresses defined.'));
+//    }
+//
+//  }
+//
+//}
+
+///**
+// * This function is called after {@see datigov_registration_register_form_validate} if there are no validation errors.
+// *
+// * @param $form
+// * @param $form_state
+// *
+// * @throws \Exception
+// */
+//function datigov_registration_user_register_form_submit($form, &$form_state) {
+//
+//  dpm('You nailed me again!');
+//
+//  if (isset($form_state['step'])) {
+//
+//    if ($form_state['step'] == 1) {
+//
+//      // Set the selected e-mail address.
+//      $form_state['storage']['reference_email_key'] = $form_state['values']['reference_email'];
+//      $form_state['step'] = 2;
+//
+//      // Tell Drupal to rebuild the form with step "2" (Drupal will call again the build form function).
+//      $form_state["rebuild"] = TRUE;
+//
+//    }
+//    // Final user registration screen.
+//    elseif ($form_state['step'] == 2) {
+//
+//      // Create account and set to not active, we need to flip roles IDs/names to
+//      // conform to Drupal's specs.
+//      $roles_flipped = array_flip(user_roles());
+//
+//      // Array of user information: username, email, password (automatically generated)
+//      $userinfo = array(
+//        'name' => $form_state['values']['username'],
+//        'mail' => $form_state['values']['email'],
+//        'pass' => user_password(),
+//        'init' => $form_state['values']['email'],
+//        'status' => 0, // This user is not active yet.
+//        'access' => REQUEST_TIME,
+//        'roles' => array($roles_flipped['org_admin'] => 'org_admin'),
+//      );
+//
+//      // Create the user using the anonymous user template as a start, then send
+//      // the e-mail.
+//      $account = user_save(drupal_anonymous_user(), $userinfo);
+//      $op = 'register_pending_approval';
+//      _user_mail_notify($op, $account);
+//
+//      // Get the organization data, in order to create/update the organization.
+//      $ws_amm_response = drupal_http_request('http://www.indicepa.gov.it/public-ws/WS05_AMM.php',
+//        array(
+//          'method' => 'POST',
+//          'headers' => array('Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',),
+//          'data' => format_string('AUTH_ID=RS6Y8X9W&COD_AMM=!COD_AMM', array('!COD_AMM' => $form_state['storage']['cod_amm'])),
+//        )
+//      );
+//      $ws_amm_response_data = json_decode($ws_amm_response->data);
+//
+//      // $ws_amm_valid = (isset($ws_amm_response_data->result) && $ws_amm_response_data->result->cod_err == 0) ? TRUE : FALSE;
+//      // if(!$ws_amm_valid){
+//      //   form_set_error('cod_amm', t('Error !cod_err: !desc_err.', array('!cod_err' => $ws_ref_response_data->cod_err, '!desc_err' => $ws_ref_response_data->desc_err)));
+//      //   return;
+//      // }
+//
+//      // Get the responsible person e-mail address.
+//      $user_ref_data = (array) $form_state['storage']['references'][$form_state['storage']['reference_email_key']];
+//      $organisation_data = (array) $ws_amm_response_data->data;
+//
+//      $data = array_merge($user_ref_data, $organisation_data);
+//
+//      // Create an organization (group) if it doesn't exist, then retrieve the group ID.
+//      $group_entity = 'node';
+//      $group_bundle = 'organization';
+//      $group_id = datigov_registration_group_create_group($data, $group_bundle, $group_entity);
+//
+//      // Update organisation node data.
+//      datigov_registration_set_group_mapped_api_fields(node_load($group_id), $data);
+//
+//      // Create membership for user in group
+//      og_group($group_entity, $group_id, array(
+//        'entity_type' => 'user',
+//        'entity' => $account->uid,
+//        'field_name' => FALSE,
+//        // Use the only OG available field (no need to specify a name, since we have only one).
+//        'state' => OG_STATE_ACTIVE
+//      ));
+//
+//      // Create user token and send the activation e-mail to the responsible person.
+//      $token = drupal_random_key();
+//      datigov_registration_token_save(array(
+//        'uid' => $account->uid,
+//        'token' => $token,
+//        'cod_amm' => $form_state['storage']['cod_amm']
+//      ));
+//      $activate_url = url("user/$account->uid/activate/confirm/$token", array('absolute' => TRUE));
+//      $params = array(
+//        'activate_url' => $activate_url,
+//        'fullname' => $form_state['values']['name'],
+//      );
+//      // drupal_mail('datigov_registration', 'notice', $reference_email, language_default(), $params);
+//      // TODO: For the time being use our own e-mail address. Uncomment the above when going to production.
+//      drupal_mail('datigov_registration', 'notice', 'datigov@insideout.io', language_default(), $params);
+//
+//      // Finalise form submission
+//      drupal_set_message(t('La tua richiesta di registrazione è stata inviata al referente IPA.'));
+//
+//      unset ($form_state['storage']); // Clear out all the form data.
+//
+//      // Redirect to the home page.
+//      $form_state['redirect'] = '<front>';
+//
+//    }
+//
+//  }
+//
+//  // Step "0"
+//  else {
+//
+//    $form_state['storage']['cod_amm'] = $form_state['values']['cod_amm'];
+//    $form_state["step"] = 1;
+//    // Tell Drupal to rebuild the form, i.e. call again the same form function, now
+//    // we have the "step" = 1 so we'll show the next step.
+//    $form_state["rebuild"] = TRUE;
+//
+//  }
+//
+//}
+
+/**
+ * Create a group if doesn't exist by code.
+ *
+ * @param $group_data
+ * @param string $group_bundle
+ * @param string $group_entity
+ *
+ * @return mixed
+ * @throws \Exception
+ */
+function datigov_registration_group_create_group($group_data, $group_bundle = 'group', $group_entity = 'node') {
+
+  $ipa_code = $group_data['cod_amm'];
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', $group_entity)
+    ->entityCondition('bundle', $group_bundle)
+    ->fieldCondition('field_cod_amm', 'value', $ipa_code, '=')
+    ->range(0, 1);
+  $result = $query->execute();
+
+  if (isset($result[$group_entity])) {
+
+    watchdog('datigov_registration', 'A group with IPA code @ipa_code already exists.', array('@ipa_code' => $ipa_code), WATCHDOG_DEBUG);
+
+    $result_nids = $news_items_nids = array_keys($result[$group_entity]);
+    $group_id = $result_nids[0];
+
+  }
+  else {
+
+    watchdog('datigov_registration', 'A group with IPA code @ipa_code doesn\'t exist, creating a new one...', array('@ipa_code' => $ipa_code), WATCHDOG_DEBUG);
+
+    $group = new stdClass();
+    $group->type = $group_bundle;
+    $group->language = LANGUAGE_NONE;
+    node_object_prepare($group);
+    $group->uid = 0;
+    $group->title = $group_data['des_amm'];
+    $group->status = 1;
+    node_save($group);
+    $group_id = $group->nid;
+
+  }
+  return $group_id;
+}
+
+function datigov_registration_token_save($info) {
+  $fields = array(
+    'uid' => (int) $info['uid'],
+    'token' => (string) $info['token'],
+    'created' => REQUEST_TIME,
+    'updated' => REQUEST_TIME,
+  );
+
+  db_insert('datigov_registration_tokens')
+    ->fields($fields)
+    ->execute();
+}
+
+/**
+ * Returns a mail string for a variable name.
+ *
+ * Used by user_mail() and the settings forms to retrieve strings.
+ */
+function _datigov_registration_responsible_mail_text($key, $language = NULL, $variables = array(), $replace = TRUE) {
+
+  $langcode = isset($language) ? $language->language : NULL;
+  $text = t('Account details for [user:name] at [site:name]', array(), array('langcode' => $langcode));
+
+  return token_replace($text, $variables, array(
+    'language' => $language,
+    'callback' => 'user_mail_tokens',
+    'sanitize' => FALSE,
+    'clear' => TRUE
+  ));
+
+}
+
+/**
+ * Activate the specified user account.
+ *
+ * @param $account The user account to activate.
+ *
+ * @throws \Exception
+ */
+function datigov_registration_activate_user($account) {
+
+  // Set the account to active.
+  $account->status = 1;
+  user_save($account);
+
+  // Set a welcome message.
+  // TODO: change to Italian.
+  drupal_set_message(t("Account @name is activated!", array('@name' => format_username($account))));
+
+  // Go back to the home page.
+  drupal_goto("<front>");
+
+}
+
+// function datigov_registration_notify($to, $params) {
+//   $params['account'] = $account;
+//   drupal_mail('datigov_registration', 'notice', $account->mail, user_preferred_language($account), $params);
+// }
+
+/**
+ * Set the registration e-mail, this is called by Drupal after the user is activated
+ * from {@see datigov_registration_activate_user}.
+ *
+ * @param string $key The key name as set in {@see datigov_registration_register_form_submit}.
+ * @param $message
+ * @param $params
+ */
+function datigov_registration_mail($key, &$message, $params) {
+
+  // Key is always going to be "notice", it is set in
+  // datigov_registration_register_form_submit
+  switch ($key) {
+
+    case 'notice':
+      $message['subject'] = t('Registrazione utente dati.gov.it in attesa di approvazione');
+      $message['body'][] = t("Salve, l’utente " . $params['fullname'] . " si è appena registrato sul portale dati.gov.it, per attivare il suo account sulla piattaforma è necessario cliccare il link seguente:\n\n" . $params['activate_url'] . "\n\nQuesto link rimane valido per 24 ore.");
+      break;
+  }
+
+}
+
+/**
+ * A Drupal hook, to change an existing form.
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function datigov_registration_form_alter(&$form, &$form_state, $form_id) {
+
+  // If it's an administrator and is not an org admin, we don't customize anything.
+  if (datigov_registration_user_has_role('administrator') || !datigov_registration_user_has_role('org_admin')) {
+    return;
+  }
+
+  switch ($form_id) {
+
+    case 'resource_node_form':
+      _datigov_registration_form_alter_resource_node_form($form, $form_state, $form_id);
+      break;
+
+    case 'dataset_node_form':
+      _datigov_registration_form_alter_dataset_node_form($form, $form_state, $form_id);
+      break;
+  }
+
+}
+
+function _datigov_registration_form_alter_dataset_node_form(&$form, &$form_state, $form_id) {
+
+  global $user;
+
+  // Get the user's groups.
+  $user_groups = og_get_entity_groups('user', $user);
+  $user_groups_values = array_values($user_groups['node']);
+
+  // Get the group's ID.
+  $group_id = array_shift($user_groups_values);
+
+  // Load the group node (this loads only the fields from the node table, i.e. title, bundle, create date, but NO custom fields).
+  $group = node_load($group_id);
+
+  // Load all the custom fields for the group.
+  $wrapper = entity_metadata_wrapper('node', $group);
+
+  // The DKAN dataset module moves (via code) some fields up, resulting in the body
+  // displaying before the title. We set here a weight for the long title.
+  $form['field_long_title']['#weight'] = -10;
+
+  // Hide the title field. The title will be set automatically according to the long title.
+  $form['title']['#type'] = 'hidden';
+  $form['title']['#required'] = FALSE;
+
+  // The _none field is added by DKAN (./profiles/dkan/modules/custom/dkan_dataset/modules/dkan_dataset_content_types/dkan_dataset_content_types.module)
+  // We prefer to have users make a choice. Be aware that DKAN is most likely
+  // going to be executed after us (datigov is before dkan), therefore we change
+  // the modules execution order for form_later using datigov_registration_module_implements_alter
+  // later in this file.
+  unset($form['field_license'][LANGUAGE_NONE]['#options']['_none']);
+
+  // Hide the tags field.
+  // $form['field_tags']['#type']                                        = 'hidden';
+  $form['field_license'][LANGUAGE_NONE]['#default_value'] = 'cc-zero';
+  $form['field_migrate_lock']['#type'] = 'hidden';
+  $form['field_type']['#type'] = 'hidden';
+  $form['field_data_dictionary']['#type'] = 'hidden';
+  $form['field_public_access_level'][LANGUAGE_NONE]['#default_value'] = 'public';
+  $form['field_additional_info']['#type'] = 'hidden';
+  $form['field_organization_ref']['#type'] = 'hidden';
+  $form['field_granularity']['#type'] = 'hidden';
+  $form['field_license_id']['#type'] = 'hidden';
+  $form['field_update_frequency_ref']['#type'] = 'hidden';
+  $form['field_related_content']['#type'] = 'hidden';
+//  $form['og_group_ref']['#type']                                      = 'hidden';
+
+  // Remove old options for frequency (new options start at 10).
+  for ($i = 0; $i < 10; $i++) {
+    unset($form['field_frequency'][LANGUAGE_NONE]['#options'][$i]);
+  }
+
+  // Change this to the user full name
+  // $form['field_author'][LANGUAGE_NONE][0]['value']['#default_value'] = $wrapper->field_nome_ref->value() . ' ' . $wrapper->field_cogn_ref->value();
+  // $form['field_author']['#type'] = 'hidden';
+
+  // Change this to the user Full name
+//  $form['field_contact_name'][LANGUAGE_NONE][0]['value']['#default_value'] =
+//    $wrapper->field_nome_ref->value() . ' ' . $wrapper->field_cogn_ref->value();
+
+//  $form['field_contact_email'][LANGUAGE_NONE][0]['value']['#default_value'] =
+//    $wrapper->field_email_ref->value();
+
+}
+
+/**
+ * Alter the resource_node_form by hiding the dataset ref field (which is set
+ * programmatically) and the file upload field (which we do not support).
+ *
+ * @since 1.0.0
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function _datigov_registration_form_alter_resource_node_form(&$form, &$form_state, $form_id) {
+
+//  _datigov_registration_check_update_rights_dataset_parameter();
+
+  // Change the selector to a hidden input.
+  $form['field_dataset_ref']['#type'] = 'hidden';
+
+  // Hide the field_upload field and the related field group (the field group is
+  // added programmatically by DKAN).
+//  $form['field_upload']['#type'] = 'hidden';
+//  unset($form['#group_children']['field_upload']);
+  unset($form['#fieldgroups']['group_upload']);
+
+}
+
+/**
+ * Intercept call to save a node.
+ *
+ * @param object $node The node being saved.
+ */
+function datigov_registration_node_presave($node) {
+
+  switch ($node->type) {
+
+    case 'dataset':
+      return _datigov_registration_node_presave_dataset($node);
+
+    case 'resource':
+      return _datigov_registration_node_presave_resource($node);
+
+  }
+
+}
+
+function _datigov_registration_node_presave_resource($node) {
+
+  _datigov_registration_check_update_rights_dataset_parameter();
+
+  // Get the query parameters.
+  $params = drupal_get_query_parameters();
+
+// disabling-dataset-ref $node->field_dataset_ref[LANGUAGE_NONE][]['target_id'] = $params['dataset'];
+
+}
+
+/**
+ * Deliver an access denied error message in case the dataset_id parameter is not
+ * set or the user hasn't got the update permissions.
+ *
+ * @since 1.0.0
+ */
+function _datigov_registration_check_update_rights_dataset_parameter() {
+
+  // Get the query parameters.
+  $params = drupal_get_query_parameters();
+
+  // Check if the dataset parameter is set and whether current user has access.
+  if (!isset($params['dataset']) || !og_user_access_entity('update own dataset content', 'node', $params['dataset'])) {
+//    drupal_access_denied();
+    return;
+  }
+
+}
+
+/**
+ * This function is called by {@link datigov_registration_node_presave
+ *
+ * @param $node
+ */
+function _datigov_registration_node_presave_dataset($node) {
+
+  // Get the long title.
+  $long_title = $node->field_long_title[LANGUAGE_NONE][0]['value'];
+
+  // Set the title according to the long title.
+  $node->title = (242 > strlen($long_title) ? $long_title : uniqid(substr($long_title, 0, 242)));
+
+}
+
+/**
+ * Alter the user profiile page (/user/:id/edit).
+ *
+ * @param object $form
+ * @param object $form_state
+ * @param string $form_id
+ */
+function datigov_registration_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+
+  global $user;
+
+  // If it's an org_admin we hide the user kind.
+  if (in_array('org_admin', $user->roles)) {
+
+    $form['message_subscribe_email']['#access'] = FALSE;
+
+    $field_user_kind_value = $form['field_user_kind'][LANGUAGE_NONE]['#default_value'];
+    unset($form['field_user_kind']);
+    $form['field_user_kind'] = array(
+      '#type' => 'hidden',
+      '#value' => $field_user_kind_value,
+    );
+    // unset($form['og_user_node']);
+  }
+
+}
+
+/**
+ * Remove the actions buttons.
+ */
+function datigov_registration_menu_local_tasks_alter(&$data) {
+
+  if (!isset($data['tabs'][0]['output'])) {
+    return;
+  }
+
+  // Remove the local tasks in the user/% menu.
+  foreach ($data['tabs'][0]['output'] as $key => $value) {
+    if (0 === strpos($value['#link']['path'], 'user/%/')) {
+      unset($data['tabs'][0]['output'][$key]);
+    }
+  }
+
+}
+
+/**
+ * Check to see if a user has been assigned a certain role.
+ *
+ * @param $role
+ *   The name of the role you're trying to find.
+ * @param $user
+ *   The user object for the user you're checking; defaults to the current user.
+ *
+ * @return
+ *   TRUE if the user object has the role, FALSE if it does not.
+ */
+function datigov_registration_user_has_role($role, $user = NULL) {
+  if ($user == NULL) {
+    global $user;
+  }
+
+  if (is_array($user->roles) && in_array($role, array_values($user->roles))) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Sets the admin configured mapped fields on a user object.
+ *
+ * @param object $user
+ */
+function datigov_registration_set_group_mapped_api_fields($group, $data) {
+
+  $mappings = datigov_registration_field_mappings();
+  if (count($mappings) > 0) {
+    foreach ($mappings as $api_field => $drupal_field_name) {
+      if (!empty($data[$api_field])) {
+        if (strpos($drupal_field_name, 'field_') === 0) {
+          $group->{$drupal_field_name}[LANGUAGE_NONE][0]['value'] = $data[$api_field];
+        }
+        else {
+          $group->{$drupal_field_name} = $data[$api_field];
+        }
+      }
+    }
+    node_save($group);
+  }
+}
+
+/**
+ * Provides the mappings between TAM headers and User account fields.
+ *
+ * @return array TAM_HEADER => drupal_field_name.
+ */
+function datigov_registration_field_mappings() {
+  return variable_get('datigov_registration_field_mappings', array());
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function datigov_registration_module_implements_alter(&$implementations, $hook) {
+
+  if (!isset($implementations['datigov_registration']) || !isset($implementations['dkan_dataset_content_types'])) {
+    return;
+  }
+
+  $implementation = $implementations['datigov_registration'];
+  unset($implementations['datigov_registration']);
+
+  $dkan_idx = array_search('dkan_dataset_content_types', array_keys($implementations)) + 1;
+  $implementations = array_slice($implementations, 0, $dkan_idx, TRUE) +
+    array('datigov_registration' => $implementation) +
+    array_slice($implementations, $dkan_idx, NULL, TRUE);
+
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function datigov_registration_form_user_login_alter(&$form, &$form_state, $form_id) {
+
+  array_splice($form, 0, 0, array(
+    'title' => array('#markup' => '<h2 class="pane-title">Login</h2>'),
+    'description' => array('#markup' => '<p>Inserire i dati di login</p>')
+  ));
+
+}
+
+///**
+// * Implements hook_block_view_alter().
+// */
+//function datigov_registration_block_view_alter(&$data, $block) {
+//
+//  dpm($block->module . ' ' . $block->delta);
+//
+//}
+//
+//function datigov_registration_user_register_form_($form, &$form_state) {
+//
+//  dpm('Oh, you nailed me!');
+//  dpm($form_state);
+//
+//  // Set the form title
+//  $form['title']['#markup'] = '<h2 class="pane-title">Registrazione</h2>';
+//
+//  // This is a multi-step form, the first "step" (0) is has no "step" set.
+//  if (isset($form_state['step'])) {
+//
+//    // Step 1
+//    if ($form_state['step'] == 1) {
+//
+//      $form['description']['#markup'] = '<p>Seleziona l\'indirizzo e-mail del responsabile:</p>';
+//
+//      // Get the e-mail references set during validation of step 0 (after calling the IPA code web service).
+//      $reference_email_options = array();
+//      foreach ($form_state['storage']['references'] as $key => $reference) {
+//        $reference_email_options[$key] = format_string('!name (!email)', array(
+//          '!email' => $reference->mail_ref,
+//          '!name' => $reference->nome_ref . ' ' . $reference->cogn_ref
+//        ));
+//      }
+//
+//      // Allow the user to select ONE e-mail address using INPUT RADIOs.
+//      $form['reference_email'] = array(
+//        '#type' => 'radios',
+//        '#title' => t('Seleziona l’email del referente IPA della tua amministrazione'),
+//        '#options' => $reference_email_options,
+//        '#required' => TRUE,
+//      );
+//
+//      $form['submit_button'] = array(
+//        '#type' => 'submit',
+//        '#value' => t('Avanti'),
+//      );
+//    }
+//
+//    // Step 2
+//    if ($form_state['step'] == 2) {
+//
+//      $form['description']['#markup'] = '<p>Completa la registrazione fornendo i tuoi dati:</p>';
+//
+//      $form['email'] = array(
+//        '#type' => 'textfield',
+//        '#title' => t('Email'),
+//        '#description' => t('Inserisci il tuo indirizzo e-mail'),
+//        '#required' => TRUE,
+//      );
+//
+//      $form['username'] = array(
+//        '#type' => 'textfield',
+//        '#title' => t('Nome utente'),
+//        '#description' => t('Inserisci il nome utente che vuoi utilizzare (solo lettere e numeri, senza spazi)'),
+//        '#required' => TRUE,
+//      );
+//
+//      $form['name'] = array(
+//        '#type' => 'textfield',
+//        '#title' => t('Nome e Cognome'),
+//        '#description' => t('Inserisci il tuo nome e cognome'),
+//        '#required' => TRUE,
+//      );
+//
+//      $form['submit_button'] = array(
+//        '#type' => 'submit',
+//        '#value' => t('Registrati'),
+//      );
+//
+//    }
+//
+//  }
+//  // First screen (step "0")
+//  else {
+//
+//    $form['description']['#markup'] = '<p>Digita il codice IPA della tua amministrazione:</p>';
+//
+//    // The IPA code field.
+//    $form['cod_amm'] = array(
+//      '#type' => 'textfield',
+//      '#title' => t('Codice IPA'),
+//      '#description' => t('Inserisci qui il codice IPA della tua amministrazione.'),
+//      '#required' => TRUE,
+//    );
+//
+//    // The submit button, after submitting the form the "step" value is set programmatically.
+//    $form['submit_button'] = array(
+//      '#type' => 'submit',
+//      '#value' => t('Avanti'),
+//    );
+//
+//  }
+//
+//  return $form;
+//}

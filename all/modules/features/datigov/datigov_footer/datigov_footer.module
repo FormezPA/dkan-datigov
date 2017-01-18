@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the datigov_footer feature.
+ */
+
+include_once 'datigov_footer.features.inc';

@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_enable().
+ */
+function datigov_dkan_dcatapit_enable() {
+  
+  // Aggiorna il nome del CT Group
+  $type = node_type_load('group');
+  $type->name = 'Organizzazione';
+  $result = node_type_save($type);
+  if($result == SAVED_UPDATED){
+    drupal_set_message(t('Nome del tipo Group aggiornato a Organizzazione.'));
+  }
+  else{
+    drupal_set_message(t('Impossibile aggiornare il nome del tipo Group a Organizzazione.'));
+  }
+  
+  // Activation message.
+  drupal_set_message(t('DatiGov DKAN DCAT-AP_IT feature is now active.'));
+}
+
+
+/**
+ * Implements hook_disable().
+ */
+function datigov_dkan_dcatapit_disable() {
+
+  drupal_set_message(t('DatiGov DKAN DCAT-AP_IT feature is now disabled.'));
+}

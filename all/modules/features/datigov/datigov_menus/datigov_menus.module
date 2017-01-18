@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DatiGov Menus feature.
+ */
+
+include_once 'datigov_menus.features.inc';

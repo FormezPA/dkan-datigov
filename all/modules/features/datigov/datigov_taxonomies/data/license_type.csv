@@ -1,0 +1,16 @@
+term,license_uri,license_family,weight
+Public Domain,http://purl.org/adms/licencetype/PublicDomain,Licenze Open Data,0
+Attribution,http://purl.org/adms/licencetype/Attribution,Licenze Open Data,1
+Effect viral (alias share-alike),http://purl.org/adms/licencetype/ViralEffect-ShareAlike,Licenze Open Data,2
+Share-Alike / copyleft Non compatible,http://purl.org/adms/licencetype/ShareAlike-NotCompatible,Licenze Open Data,3
+Share-Alike /copyleft Compatible,http://purl.org/adms/licencetype/ShareAlike-Compatible,Licenze Open Data,4
+Nominal Cost,http://purl.org/adms/licencetype/NominalCost,Licenze Open Data,5
+Grant Back,http://purl.org/adms/licencetype/GrantBack,Licenze Open Data,6
+Non commercial use only,http://purl.org/adms/licencetype/NonCommercialUseOnly,Licenze Non-Open Data,7
+No Derivatives Work,http://purl.org/adms/licencetype/NoDerivativeWork,Licenze Non-Open Data,8
+Royalties required,http://purl.org/adms/licencetype/RoyaltiesRequired,Licenze Non-Open Data,9
+Reserved Names / endorsement / official status,http://purl.org/adms/licencetype/ReservedNames-Endorsement-OfficialStatus,Licenze Non-Open Data,10
+Jurisdiction within EU,http://purl.org/adms/licencetype/JurisdictionWithinTheEU,Licenze Non-Open Data,11
+Other restrictive clauses ,http://purl.org/adms/licencetype/OtherRestrictiveClauses,Licenze Non-Open Data,12
+Known patent encumbrance,http://purl.org/adms/licencetype/KnownPatentEncumbrance,Licenze Non-Open Data,13
+UnknownIPR,http://purl.org/adms/licencetype/UnknownIPR,Non conosciuta,14

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the datigov base feature.
+ */
+
+include_once 'datigov_base.features.inc';

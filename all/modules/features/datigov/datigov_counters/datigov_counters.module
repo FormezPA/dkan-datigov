@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the datigov_counters feature.
+ */
+
+include_once 'datigov_counters.features.inc';

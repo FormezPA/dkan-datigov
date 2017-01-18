@@ -1,0 +1,28 @@
+title,machine_name,type,uri,uuid,created,updated
+Comune di Bari,comune_di_bari,harvest_ckan_datigov,http://opendata.comune.bari.it/api/3/action/package_list,a3bf0b3c-dca9-4d27-93c5-d0d2ff4abc2b,2016-11-21 11:48:19 ,2016-11-21 11:48:19
+Comune di Catania,comune_di_catania,harvest_ckan_datigov,http://opendata.comune.catania.gov.it/api/3/action/package_list,0b274fb5-495f-4850-8d0d-b5392884ac5f,2016-11-19 01:39:08 ,2016-11-19 01:39:08
+Comune di Firenze - Annuario Statistico,comune_di_firenze_annstat,harvest_ckan_datigov,http://annuario.comune.fi.it/api/3/action/package_list,009e77be-4904-44f8-bf17-bdba90e9a028,2016-11-21 12:37:12 ,2016-11-21 12:37:12
+Comune di Lecce,comune_di_lecce,harvest_ckan_datigov,http://dati.comune.lecce.it/api/3/action/package_list,14620899-0d11-4064-a4a2-2a5b2c175630,2016-11-20 00:56:09 ,2016-11-20 12:56:20
+Comune di Ravenna,comune_di_ravenna,harvest_ckan_datigov,http://opendata.comune.ravenna.it/api/3/action/package_list,eca71b93-174f-4647-b893-33757a7132de,2016-11-16 14:19:26 ,2016-11-23 01:39:07
+Consip,consip,harvest_ckan_datigov,http://dati.consip.it/api/3/action/package_list,9a7b1646-5b6a-43eb-ad4a-b04c508e9146,2016-11-17 17:31:12 ,2016-11-23 01:59:28
+Dati Basilicata,dati_basilicata,harvest_ckan_datigov,http://dati.regione.basilicata.it/catalog/api/3/action/package_list,2b4049fd-4986-4b9f-8467-0fcb60a65ffe,2016-11-17 16:56:30 ,2016-11-17 16:56:30
+Dati Emilia Romagna,dati_emilia_romagna,harvest_ckan_datigov,http://dati.emilia-romagna.it/api/3/action/package_list,ed25d788-1d47-4339-a69c-8a3cbd2b1a17,2016-11-17 23:36:03 ,2016-11-17 23:36:26
+Dati Lombardia,dati_lombardia,harvest_dcatap,https://dati.lombardia.it/data.json,34f4452d-2b0d-48c3-bcb0-c74abb50eb24,2016-11-19 00:48:13 ,2016-11-19 00:48:13
+Dati MIT,dati_mit,harvest_ckan_datigov,http://dati.mit.gov.it/catalog/api/3/action/package_list,25ecee06-996e-4ff9-ae0d-36f6ef4b0a36,2016-11-15 15:32:56 ,2016-11-15 15:37:04
+Dati Piemonte,dati_piemonte,harvest_ckan_v1,http://www.dati.piemonte.it/rpapisrv/api/rest/dataset,b11c281f-5bc2-49fd-b312-c54879e7821f,2016-11-19 23:40:34 ,2016-11-19 23:40:34
+Dati trentino,dati_trentino,harvest_ckan_datigov,http://dati.trentino.it/api/3/action/package_list,7dddb1d1-6642-4373-b50b-66b47a17d1a4,2016-11-20 10:10:59 ,2016-11-23 15:41:00
+Dati Veneto,dati_veneto,harvest_ckan_datigov,http://dati.veneto.it/api/3/action/package_list,bc4d7dae-dcba-4141-b91d-be1cb9e80ff4,2016-11-17 14:39:32 ,2016-11-17 14:54:53
+DCAT-AP Test DatiGov,dcatap_test_datigov,harvest_dcatap,http://dkan-dev.test.it/sites/default/files/proxy-harvester/dcat-datigov-50.json,548531c6-25d5-4deb-b0b2-3cd88d78ca4f,2016-11-18 23:19:31 ,2016-11-18 23:42:08
+INPS,inps,harvest_ckan_v1,http://serviziweb2.inps.it/odapi/catalog,b1f86ba6-4bfc-4cd3-9451-627b0cde95de,2016-11-20 01:13:40 ,2016-11-23 02:01:23
+Open Data Alto Adige,open_data_alto_adige,harvest_ckan_datigov,http://dati.retecivica.bz.it/api/3/action/package_list,22911a01-c060-4156-9e64-50ead9bcba5d,2016-12-13 14:43:19 ,2016-12-13 14:43:19
+"Open Data Network della  Città Metropolitana di Firenze, delle Province di Prato e Pistoia  e Autorità di Bacino",open_data_network,harvest_ckan_v1,http://www.opendatanetwork.it/api/rest/dataset,7fed7a67-d89b-4d90-99bb-5e57a5cc3be4,2016-11-20 00:51:11 ,2016-11-20 00:51:11
+Open Expo,open_expo,harvest_ckan_datigov,http://dati.openexpo2015.it/catalog/api/3/action/package_list,58e11933-f2f2-4376-a69b-bfc935a0eb61,2016-11-24 10:54:36 ,2016-11-24 10:54:36
+Provincia di Pisa,provincia_di_pisa,harvest_ckan_datigov,http://opendata.provincia.pisa.it/api/3/action/package_list,eec56e67-e8d0-4bba-ba88-c3b95bb940dc,2016-11-14 14:02:27 ,2016-11-23 01:25:28
+Provincia di Roma,provincia_di_roma,harvest_ckan_v1,http://www.opendata.provincia.roma.it/api/rest/dataset,144e857f-70da-477c-83e0-d201d5eafad6,2016-11-20 13:46:36 ,2016-11-20 13:46:36
+Regione Friuli Venezia Giulia,regione_friuli_venezia_giulia,harvest_dcatap,https://www.dati.friuliveneziagiulia.it/data.json,e0f86af4-d1cd-4fe3-815c-56787e18e4e2,2016-11-20 13:35:13 ,2016-11-20 13:35:13
+Regione Lazio,regione_lazio,harvest_ckan_datigov,http://dati.lazio.it/catalog/api/3/action/package_list,0c1a8934-89df-499a-b748-560ccb7ee01b,2016-11-18 01:53:41 ,2016-11-18 02:09:12
+Regione Marche,regione_marche,harvest_ckan_datigov,http://goodpa.regione.marche.it/api/3/action/package_list,06afc6e0-6a93-4bdb-bcfa-ed7c5f691ddf,2016-11-18 00:04:29 ,2016-11-18 00:04:29
+Regione Puglia,regione_puglia,harvest_ckan_datigov,http://www.dataset.puglia.it/api/3/action/package_list,bcf06fd8-bc70-405f-b51a-a1ef9aff7f82,2016-11-14 15:51:59 ,2016-11-14 15:51:59
+Regione Sardegna,regione_sardegna,harvest_ckan_datigov,http://dati.regione.sardegna.it/api/3/action/package_list,62a5f820-00db-4992-b26f-eb88037ce0a4,2016-11-22 18:12:29 ,2016-12-06 13:30:14
+Regione Toscana,regione_toscana,harvest_ckan_datigov,http://dati.toscana.it/api/3/action/package_list,de190b53-0c83-46a0-ae7a-d36afe523611,2016-11-21 08:02:58 ,2016-11-23 12:43:28
+Regione Umbria,regione_umbria,harvest_ckan_datigov,http://dkan-dev.test.it/sites/default/files/proxy-harvester/dati_umbria.ckan.json,29fbca8a-b15c-4e0f-a574-f17d8ed683cb,2016-11-17 23:29:27 ,2016-11-18 17:19:46

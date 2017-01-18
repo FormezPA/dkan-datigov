@@ -1,0 +1,283 @@
+<?php
+
+function _dkan_harvest_additional_tools_pathauto_batch(){
+  
+  module_load_include('inc', 'pathauto');
+  module_load_include('inc', 'pathauto.pathauto');
+
+  // Get all nodes that need to be updated
+  $query = db_select('node', 'n');
+  $query->addField('n', 'nid');
+  $query->condition('n.type', array('resource', 'dataset', 'group'), 'IN');
+
+  $nids = $query->execute()->fetchCol();
+
+  // Save current action for new aliases and change it to delete old one.
+  $alias_action = variable_get('pathauto_update_action', 0);
+  variable_set('pathauto_update_action', PATHAUTO_UPDATE_ACTION_DELETE);
+
+  pathauto_node_update_alias_multiple($nids, 'bulkupdate');
+
+  // Restore original action for new aliases.
+  variable_set('pathauto_update_action', $alias_action);
+}
+
+
+function dkan_harvest_additional_tools_menu(){
+  
+  $items = array();
+  
+  $items['dkan-harvest-additional-tools/test'] = array(
+    'title' => 'Example RSS feed',
+    'page callback' => '_dkan_harvest_additional_tools_test01',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  $items['dkan-harvest-additional-tools/get_headers'] = array(
+    'access callback'   => true, // available to all
+    'page callback'     => '_dkan_harvest_additional_tools_test02', // defined below
+    'delivery callback' => 'drupal_json_output',
+  );
+  
+  return $items;
+}
+
+function _dkan_harvest_additional_tools_test02(){
+  
+  if(isset($_GET['url'])){
+    $url=$_GET['url'];
+    $data = DkanDGHarvestGetHttpHeaders::get_headers(urldecode($url));
+    return $data;
+  }
+  else{
+    return array();
+  }
+  
+  
+}
+
+
+/*
+function _dkan_harvest_additional_tools_test01(){
+  
+  $url = 'http://dati.openexpo2015.it/catalog/dataset/02bcaff6-f592-4681-9298-5ad9114807be/resource/253c8ac9-8335-4425-84c5-4a90be863c00/download/fornitori.csv';
+  $filedata=_createFileFromHeaders($url);
+  dsm($filedata);
+  $res = file_save((object) $filedata);
+  dsm($res);
+  return '';
+}
+
+function _createFileFromHeaders($fileurl){
+    
+    $result = array();
+    $file_headers = @get_headers($fileurl, 1);
+    
+    if(!$file_headers){
+      $file_headers = get_headers_curl($fileurl);
+    }
+    
+    if(is_array($file_headers)){
+      
+      foreach ($file_headers as $key=>$value) {
+          if (is_array($value)) {
+              $value = end($value);
+          }
+          $result[$key] = $value;
+      }
+      
+      // remove optional query strings
+      $filename=parse_url($fileurl);
+      
+      $filedata = array(
+        'fid' => NULL,
+        'display' => 1,
+        'status' => FILE_STATUS_TEMPORARY,
+        'filename' => pathinfo($filename['path'], PATHINFO_BASENAME),
+        'uri' => $fileurl,
+      );
+
+      if(isset($result['Content-Type'])){
+        $filedata['filemime'] = $result['Content-Type'];
+      }
+
+      if(isset($result['Content-Length'])){
+        $filedata['filesize'] = $result['Content-Length'];
+      }
+      else{
+        $filedata['filesize'] = substr($result['Content-Range'],
+          strpos($result['Content-Range'], "/") + 1 );
+      }
+
+      if(isset($result['Last-Modified'])){
+        $filedata['timestamp'] = strtotime($result['Last-Modified']);
+      }
+      
+      return $filedata;
+    }
+    else{
+      return -1;
+    }
+    
+  }
+  
+  function get_headers_curl($url) {
+    
+    $ch = curl_init(); 
+
+    curl_setopt($ch, CURLOPT_URL,            $url); 
+    curl_setopt($ch, CURLOPT_HEADER,         true); 
+    curl_setopt($ch, CURLOPT_NOBODY,         true); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+    curl_setopt($ch, CURLOPT_TIMEOUT,        15); 
+
+    $r = explode("\n", curl_exec($ch));
+
+    foreach($r as $value){
+      $tk = explode(": ", $value, 2);
+      if(trim($tk[0]) == ''){
+        continue;
+      }
+      else if(count($tk) == 2){
+        $data[$tk[0]]=$tk[1];
+      }
+      else{
+        $data[]=$tk[0];
+      }
+    }
+
+    return $data;
+  } 
+ * 
+ */
+
+
+
+class DkanDGHarvestGetHttpHeaders {
+  
+  const METHOD_CURL = 'curl';
+  const METHOD_FSOCKET = 'fsocket';
+  const METHOD_PHP = 'php';
+  
+  public static function get_headers($url, $force_method = NULL){
+    
+    // First choice: curl
+    if(function_exists('curl_init') 
+      && (empty($force_method) || $force_method == self::METHOD_CURL)){
+      
+      return self::_get_headers_curl($url);
+    }
+    else if (function_exists('fsockopen') 
+      && (empty($force_method) || $force_method == self::METHOD_FSOCKET)) {
+      
+      // Second choiche fsockopen
+      return self::_get_headers_with_fsocket($url);
+    }
+    else {
+      // third choiche: function get_headers.
+      return get_headers($url, 1);
+    }
+  }
+  
+  
+  /**
+   * Get the headers from file with cURL
+   * 
+   * @param type $url
+   * @return type
+   */
+  protected static function _get_headers_curl($url) {
+    
+    $ch = curl_init(); 
+    curl_setopt($ch, CURLOPT_URL, $url); 
+    curl_setopt($ch, CURLOPT_HEADER, true); 
+    curl_setopt($ch, CURLOPT_NOBODY, true); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5); 
+    
+    $r = curl_exec($ch); 
+    
+    return self::_parse_header_response($r);
+    
+  }
+  
+  /**
+   * Get headers with the fsocket method.
+   * 
+   * @param string $url
+   * @return array
+   * @throws Exception
+   */
+  protected static function _get_headers_with_fsocket($url){
+    
+    $purl = parse_url($url);
+    $port = (isset($purl['port'])) ? $purl['port'] :'80'; 
+    $timeout = '10'; 
+    
+    switch ($purl['scheme']) {
+        case 'https':
+            $scheme = 'ssl://';
+            $port = 443;
+            break;
+        case 'http':
+        default:
+            $scheme = '';
+            $port = 80;    
+    }
+
+    try {
+      if (!$fp = fsockopen($purl['host'],$port,$errNo,$errMsg,$timeout)) { 
+        throw new Exception($errMsg, $errNo);
+      }
+    } catch (Exception $ex) {
+      drush_log($ex->getMessage(), 'warning');
+      return array();
+    }
+
+    // HEAD or GET ?
+    $requestheader = "GET " . $purl['path'] . " HTTP/1.1\r\n"; 
+    $requestheader .= "HOST: " . $purl['host'] . "\r\n\r\n"; 
+    fputs($fp, $requestheader); 
+
+    $response='';
+    while (!feof($fp)) { 
+      $chunk = fgets($fp);
+      if($chunk=="\r\n"){
+        break;
+      } 
+      else{
+        $response.=$chunk;
+      }
+    } 
+
+    fclose($fp); 
+    return self:: _parse_header_response($response);
+  }
+  
+  /**
+   * Parse the response of cURL and fsocket method
+   * @param type $str_response
+   * @return type
+   */
+  private static function _parse_header_response($str_response){
+    
+    $r = explode("\n", $str_response);
+
+    foreach($r as $value){
+      $tk = explode(": ", $value, 2);
+      if(trim($tk[0]) == ''){
+        continue;
+      }
+      else if(count($tk) == 2){
+        $data[$tk[0]]=trim($tk[1]);
+      }
+      else{
+        $data[]=trim($tk[0]);
+      }
+    }
+
+    return $data;
+  }
+  
+}

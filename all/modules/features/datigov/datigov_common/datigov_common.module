@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DatiGov Common feature.
+ */
+
+include_once 'datigov_common.features.inc';

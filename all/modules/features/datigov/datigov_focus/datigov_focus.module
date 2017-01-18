@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the datigov_focus feature.
+ */
+
+include_once 'datigov_focus.features.inc';

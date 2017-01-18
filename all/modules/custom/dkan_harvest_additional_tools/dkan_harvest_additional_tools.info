@@ -1,0 +1,7 @@
+name = DKAN Harvest Additional Tools
+description = Additional tools for the DKAN harvester, like performance improvements and options for drush
+core = 7.x
+package = DatiGov.it
+dependencies[] = migrate
+dependencies[] = dkan_migrate_base
+dependencies[] = dkan_harvest

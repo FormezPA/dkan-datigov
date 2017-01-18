@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DatiGov Taxonomies feature.
+ */
+
+include_once 'datigov_taxonomies.features.inc';

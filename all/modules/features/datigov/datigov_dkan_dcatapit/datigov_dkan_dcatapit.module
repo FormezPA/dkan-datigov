@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Datigov DKAN DCAT-AP_IT feature.
+ */
+
+include_once 'datigov_dkan_dcatapit.features.inc';

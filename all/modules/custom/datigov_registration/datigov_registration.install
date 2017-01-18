@@ -1,0 +1,74 @@
+<?php
+
+
+/**
+ * Implements hook_install().
+ *
+ */
+function datigov_registration_install() {
+  $org_admin_role = new stdClass();
+  $org_admin_role->name = 'org_admin';
+  $org_admin_role->weight = 3;
+  user_role_save($org_admin_role);
+  user_role_grant_permissions($org_admin_role->rid, array());
+}
+
+/**
+ * @file
+ * Performs Registartion form sumbit alter 
+ */
+
+function datigov_registration_schema() {
+  $schema['datigov_registration_tokens'] = array(
+    'description' => 'The base table for nodes.',
+    'fields' => array(
+      'uid' => array(
+        'description' => 'The primary identifier for a user.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'cod_amm' => array(
+        'description' => 'The organisation code.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'token' => array(
+        'description' => 'The token .',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'contact_name' => array(
+        'description' => 'Responsible name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ),
+      'contact_email' => array(
+        'description' => 'Responsible email.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the token was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updated' => array(
+        'description' => 'The Unix timestamp when the token was updated.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+  );
+  return $schema;
+}
+

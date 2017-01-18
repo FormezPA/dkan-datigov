@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DatiGov Search feature.
+ */
+
+include_once 'datigov_search.features.inc';

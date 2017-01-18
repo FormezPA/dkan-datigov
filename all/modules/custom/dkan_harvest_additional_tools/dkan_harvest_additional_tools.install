@@ -1,0 +1,8 @@
+<?php
+
+function dkan_harvest_additional_tools_install() {
+  db_update('system')
+    ->fields(array('weight' => 1000))
+    ->condition('name', 'dkan_harvest_additional_tools', '=')
+    ->execute();
+}
