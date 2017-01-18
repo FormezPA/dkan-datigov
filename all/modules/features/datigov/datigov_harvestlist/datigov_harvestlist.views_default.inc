@@ -38,23 +38,44 @@ function datigov_harvestlist_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
-  /* Field: Content: Machine Name */
+  /* Field: Nodo: Machine Name */
   $handler->display->display_options['fields']['field_dkan_harvest_machine_name']['id'] = 'field_dkan_harvest_machine_name';
   $handler->display->display_options['fields']['field_dkan_harvest_machine_name']['table'] = 'field_data_field_dkan_harvest_machine_name';
   $handler->display->display_options['fields']['field_dkan_harvest_machine_name']['field'] = 'field_dkan_harvest_machine_name';
   $handler->display->display_options['fields']['field_dkan_harvest_machine_name']['label'] = 'machine_name';
   $handler->display->display_options['fields']['field_dkan_harvest_machine_name']['click_sort_column'] = 'human';
-  /* Field: Content: Type */
+  /* Field: Nodo: Type */
   $handler->display->display_options['fields']['field_dkan_harveset_type']['id'] = 'field_dkan_harveset_type';
   $handler->display->display_options['fields']['field_dkan_harveset_type']['table'] = 'field_data_field_dkan_harveset_type';
   $handler->display->display_options['fields']['field_dkan_harveset_type']['field'] = 'field_dkan_harveset_type';
   $handler->display->display_options['fields']['field_dkan_harveset_type']['label'] = 'type';
   $handler->display->display_options['fields']['field_dkan_harveset_type']['type'] = 'list_key';
-  /* Field: Content: Source URI */
+  /* Field: Nodo: Source URI */
   $handler->display->display_options['fields']['field_dkan_harvest_source_uri']['id'] = 'field_dkan_harvest_source_uri';
   $handler->display->display_options['fields']['field_dkan_harvest_source_uri']['table'] = 'field_data_field_dkan_harvest_source_uri';
   $handler->display->display_options['fields']['field_dkan_harvest_source_uri']['field'] = 'field_dkan_harvest_source_uri';
   $handler->display->display_options['fields']['field_dkan_harvest_source_uri']['label'] = 'uri';
+  /* Field: Content: Nodo UUID */
+  $handler->display->display_options['fields']['uuid']['id'] = 'uuid';
+  $handler->display->display_options['fields']['uuid']['table'] = 'node';
+  $handler->display->display_options['fields']['uuid']['field'] = 'uuid';
+  $handler->display->display_options['fields']['uuid']['label'] = 'uuid';
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['created']['custom_date_format'] = 'Y-m-d H:i:s';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'search_api_facetapi_YEAR';
+  /* Field: Content: Updated date */
+  $handler->display->display_options['fields']['changed']['id'] = 'changed';
+  $handler->display->display_options['fields']['changed']['table'] = 'node';
+  $handler->display->display_options['fields']['changed']['field'] = 'changed';
+  $handler->display->display_options['fields']['changed']['label'] = 'updated';
+  $handler->display->display_options['fields']['changed']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['changed']['custom_date_format'] = 'Y-m-d H:i:s';
+  $handler->display->display_options['fields']['changed']['second_date_format'] = 'search_api_facetapi_YEAR';
   /* Sort criterion: Content: Title */
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
@@ -92,6 +113,25 @@ function datigov_harvestlist_views_default_views() {
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
     'default' => 0,
+  );
+  $translatables['harvest_sources_export'] = array(
+    t('Master'),
+    t('Harvest sources export'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('title'),
+    t('machine_name'),
+    t('type'),
+    t('uri'),
+    t('uuid'),
+    t('created'),
+    t('updated'),
+    t('Page'),
+    t('Data export'),
   );
   $export['harvest_sources_export'] = $view;
 
