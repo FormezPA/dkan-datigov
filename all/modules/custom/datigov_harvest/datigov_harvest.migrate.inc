@@ -42,6 +42,9 @@ class HarvestMigrationCKANDatiGov extends HarvestMigrationCKANPackages {
     $this->addFieldMapping('field_dcatap_license_dataset', '_license_dataset');
     $this->addFieldMapping('field_dcatap_frequency', '_frequency');
     
+    $this->addFieldMapping('field_dcatap_rightsholder', '_holder_identifier');
+    $this->addFieldMapping('field_dcatap_rightsholder:second', '_holder_name');
+    
   }
 
 
@@ -78,6 +81,28 @@ class HarvestMigrationCKANDatiGov extends HarvestMigrationCKANPackages {
     }
     // disabilita il campo frequency
     unset($row->frequency);
+    
+    // fallback per Titolare
+    if(isset($row->holder_name) && $row->holder_name != ''){
+        $row->_holder_name = $row->holder_name;
+    }
+    else if(isset($row->publisher_name) && $row->publisher_name != '' ){
+        $row->_holder_name = $row->publisher_name;
+    }
+    else {
+        $row->_holder_name = null;
+    }
+    
+    // fallback per IPA
+    if(isset($row->holder_identifier) && $row->holder_identifier != ''){
+        $row->_holder_identifier = $row->holder_identifier;
+    }
+    else if(isset($row->publisher_identifier) && $row->publisher_identifier != '' ){
+        $row->_holder_identifier = $row->publisher_identifier;
+    }
+    else {
+        $row->_holder_identifier = null;
+    }
     
   }
   
