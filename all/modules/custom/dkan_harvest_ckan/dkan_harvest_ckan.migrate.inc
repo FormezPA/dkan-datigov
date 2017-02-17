@@ -49,13 +49,14 @@ class HarvestMigrationCKAN extends HarvestMigration {
 
     $this->addFieldMapping('uuid', 'id');
     $this->addFieldMapping('changed', 'metadata_modified');
+    $this->addFieldMapping('field_modified_source_date', 'metadata_modified');
     $this->addFieldMapping('created', 'metadata_created');
     $this->addFieldMapping('field_contact_email', 'maintainer_email');
     $this->addFieldMapping('field_license', 'license_title');
     $this->addFieldMapping('field_tags', '_tags');
     $this->addFieldMapping('field_tags:create_term')->defaultValue(TRUE);
     $this->addFieldMapping('field_language')->defaultValue('it');
-    $this->addFieldMapping('field_public_access_level', 'private');
+    $this->addFieldMapping('field_public_access_level', '_is_public');
     $this->addFieldMapping('body', 'notes');
     $this->addFieldMapping('field_additional_info', 'additional_info_keys');
     $this->addFieldMapping('field_additional_info:second', 'additional_info_values')->defaultValue('');
@@ -113,6 +114,12 @@ class HarvestMigrationCKAN extends HarvestMigration {
    */
   public function prepareRow($row) {
     parent::prepareRow($row);
+    
+    if(isset($row->private)){
+      // Nota: il campo private riempie il campo field_public_access_level
+      // quindi 0 diventa TRUE e 1 diventa FALSE.
+      $row->_is_public = (intval($row->private) == 0) ? 'public' : 'private';
+    }
     
     if(is_array($row->tags)){
       foreach ($row->tags as $tag) {
@@ -200,10 +207,16 @@ class HarvestMigrationCKAN extends HarvestMigration {
    */
   public function prepareRowGroup($group_row_data) {
 
-    $group = new stdClass();
-    $group->name = $group_row_data->title;
+    if(isset($group_row_data)){
+      $group = new stdClass();
+      $group->name = $group_row_data->title;
 
-    return $group;
+      return $group;
+    }
+    else {
+      return null;
+    }
+      
   }
   
 }
