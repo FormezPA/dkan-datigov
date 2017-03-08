@@ -1,6 +1,6 @@
 name = DatiGov Taxonomies
+description = Tassonomie di Datigov e dell'harvester. Include le migrazioni e le liste di termini per i vocabolari DCAT-AP_IT compliant.
 core = 7.x
-description = Tassonomie di Datigov e dell'harvester. Include le migrazioni e le liste di termini per i vocabolari DCAT-AP_IT compliant. 
 package = DatiGov
 version = 7.x-1.0
 dependencies[] = ctools
