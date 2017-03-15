@@ -1,0 +1,32 @@
+"title","url ","schema","frequenza ","referente","email_referente","editore","home","lingua","nid"
+"Comune di Albano Laziale","http://dati.opendataground.it/comunealbanolaziale/api/2/rest/dataset","ckan_v1","altro",,"opendata@comune.albanolaziale.rm.it","Comune di Albano Laziale","http://dati.opendataground.it/comunealbanolaziale",,79064
+"Opendata Bari","http://opendata.comune.bari.it/api/3/action/package_list","ckan","altro",,"redazione.opendata@comune.bari.it","Comune di Bari","http://opendata.comune.bari.it/",,60
+"Civitavecchia Open Data","http://opendata.comune.civitavecchia.rm.it/api/3/action/package_list","ckan","altro",,,"Comune di Civitavecchia","http://opendata.comune.civitavecchia.rm.it/",,93962
+"Annuario statistico del Comune di Firenze","http://annuario.comune.fi.it/api/3/action/package_list","ckan","altro",,"opendata@comune.lecce.it","Annuario statistico del Comune di Firenze","http://annuario.comune.fi.it/",,62
+"#opendatalecce","http://dati.comune.lecce.it/api/3/action/package_list","ckan","altro",,"opendata@comune.pisa.it","Comune di Lecce","http://dati.comune.lecce.it/",,63
+"Comune di Pisa Open Data","http://opendata.comune.pisa.it/SpodCkanApi/api/1/rest/dataset","ckan_v1","altro",,"opendata@comune.ra.it","Comune di Pisa Open Data","http://opendata.comune.pisa.it/",,77184
+"Opendata Ravenna","http://opendata.comune.ravenna.it/api/3/action/package_list","ckan","altro",,,"Comune di Ravenna","http://opendata.comune.ravenna.it/",,64
+"Ripi Open Data","http://dataset.opendataripi.it/api/3/action/package_list","ckan","altro",,,"Comune di Ripi","http://dataset.opendataripi.it/",,93964
+"Openterlizzi","http://dati.comune.terlizzi.ba.it/api/3/action/package_list","ckan","altro",,,"Comune di Terlizzi","http://dati.comune.terlizzi.ba.it/",,78367
+"opendata Reggio Calabria","http://ckan.reggiocal.it//api/3/action/package_list","ckan","altro",,"opendata@reggiocal.it","Comune Reggio di Calabria","http://dati.reggiocal.it/",,93963
+"Consip","http://dati.consip.it/api/3/action/package_list","ckan","altro",,"opendata@consip.it","Consip","http://dati.consip.it/",,65
+"Consorzio Lamma","http://dati.lamma.toscana.it/api/3/action/package_list","ckan","altro",,,"Consorzio Lamma","http://dati.lamma.toscana.it/",,93965
+"Regione Basilicata Open Data","http://dati.regione.basilicata.it/catalog/api/3/action/package_list","ckan","altro",,,"Regione Basilicata","http://dati.regione.basilicata.it/catalog/",,66
+"OpenDataER","http://dati.emilia-romagna.it/api/3/action/package_list","ckan","altro",,"info@dati.emilia-romagna.it","Regione Emilia Romagna","http://dati.emilia-romagna.it/",,67
+"Open Data Lombardia","https://dati.lombardia.it/data.json","dcat","altro",,"admin@dati.lombardia.it","Regione Lombardia","https://dati.lombardia.it/",,68
+"Opendata MIT","http://dati.mit.gov.it/catalog/api/3/action/package_list","ckan","altro",,,"Governo Italiano Ministero delle Infrastrutture e dei Trasporti","http://dati.mit.gov.it/catalog/dataset",,69
+"OPENdata Trentino","http://dati.trentino.it/api/3/action/package_list","ckan","altro",,"info@dati.trentino.it","Provincia autonoma di Trento","http://dati.trentino.it/",,71
+"Open Data veneto","http://dati.veneto.it/api/3/action/package_list","ckan","altro",,"opendata@regione.veneto.it","Regione Veneto","http://dati.veneto.it/",,72
+"INPS","http://serviziweb2.inps.it/odapi/catalog","ckan_v1","altro",,,"INPS","http://www.inps.it/portale/default.aspx?sID=%3b0%3b11191%3b7719%3b&lastMenu=7719&iMenu=1&iNodo=7719&p4=2&bi=22&link=Open%20Data%20INPS",,74
+"ISTAT","http://apistat.istat.it/?q=getdslistdatagov","dcat","altro",,"comunica@istat.it","ISTAT","http://datiopen.istat.it/",,272212
+"Open Data Alto Adige","http://dati.retecivica.bz.it/api/3/action/package_list","ckan","altro",,"opendata@retecivica.bz.it","Provincia autonoma di Bolzano","http://dati.retecivica.bz.it/it/",,75
+"Open Data Network – catalogo federato della  Città Metropolitana di Firenze, delle Province di Prato e Pistoia  e Autorità  di Bacino","http://www.opendatanetwork.it/api/rest/dataset","ckan_v1","altro",,,"Provincia di Firenze, Provincia di Prato, Provincia di Pistoia e Autorità di Bacino del Fiume Arno","http://www.opendatanetwork.it/",,76
+"OpenData della Città Metropolitana di Roma Capitale","http://www.opendata.provincia.roma.it/api/rest/dataset","ckan_v1","altro",,"opendata@provincia.roma.it","Provincia di Roma","http://www.opendata.provincia.roma.it/",,79
+"Open data Campania","https://iteropendata.regione.campania.it//api/3/action/package_list","ckan","altro",,,"Regione Campania","https://iteropendata.regione.campania.it/",,183681
+"Regione Friuli Venezia Giulia","https://www.dati.friuliveneziagiulia.it/data.json","dcat","altro",,"opendata@regione.fvg.it","Regione Friuli Venezia Giulia","https://www.dati.friuliveneziagiulia.it/",,80
+"Regione Lazio Open data","http://dati.lazio.it/catalog/api/3/action/package_list","ckan","altro",,"info.opendatalazio@regione.lazio.it","Regione Lazio","http://dati.lazio.it/catalog/dataset",,81
+"Regione Marche","http://goodpa.regione.marche.it/api/3/action/package_list","ckan","altro",,,"Regione Marche","http://goodpa.regione.marche.it/",,82
+"Dati Puglia","http://www.dataset.puglia.it/api/3/action/package_list","ckan","altro",,,"Regione Puglia","http://www.dataset.puglia.it/",,83
+"Opendata Sardegna","http://dati.regione.sardegna.it/api/3/action/package_list","ckan","altro",,"opendata@regione.sardegna.it","Regione Sardegna","http://opendata.regione.sardegna.it/",,84
+"OpenToscana","http://dati.toscana.it/api/3/action/package_list","ckan","altro",,"info@open.toscana.it","Regione Toscana","http://dati.toscana.it/",,85
+"Regione Umbria","http://dati.umbria.it/api/3/action/package_list","ckan","altro",,"opendata@regione.umbria.it","Regione Umbria","http://dati.umbria.it/",,86

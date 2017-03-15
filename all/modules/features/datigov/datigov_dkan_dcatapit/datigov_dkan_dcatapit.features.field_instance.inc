@@ -55,6 +55,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
       'module' => 'text',
       'settings' => array(
         'rows' => 20,
+        'show_token_tree' => FALSE,
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
@@ -101,6 +102,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'show_token_tree' => FALSE,
         'size' => 60,
       ),
       'type' => 'text_textfield',
@@ -116,7 +118,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -147,6 +149,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'show_token_tree' => FALSE,
         'size' => 60,
       ),
       'type' => 'text_textfield',
@@ -270,7 +273,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
     'description' => 'Nome e cognome del referente',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -301,6 +304,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'show_token_tree' => FALSE,
         'size' => 60,
       ),
       'type' => 'text_textfield',
@@ -366,7 +370,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -397,6 +401,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'show_token_tree' => FALSE,
         'size' => 60,
       ),
       'type' => 'text_textfield',
@@ -459,7 +464,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
     'description' => 'Url delle API utilizzata per le funzioni di harvesting',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_default',
@@ -559,6 +564,53 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-catalog-field_harvester_reference'.
+  $field_instances['node-catalog-field_harvester_reference'] = array(
+    'bundle' => 'catalog',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 14,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_harvester_reference',
+    'label' => 'Harvester Reference',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 44,
+    ),
+  );
+
   // Exported field_instance: 'node-catalog-og_group_ref'.
   $field_instances['node-catalog-og_group_ref'] = array(
     'bundle' => 'catalog',
@@ -642,13 +694,19 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 22,
       ),
     ),
     'entity_type' => 'node',
@@ -680,14 +738,14 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
         'label' => 'above',
         'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
+        'type' => 'taxonomy_term_reference_plain',
         'weight' => 25,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -695,10 +753,16 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 25,
+      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_dcatap_license_dataset',
-    'label' => 'Licenza DCAT',
+    'label' => 'Licenza',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -722,7 +786,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'double_field',
         'settings' => array(
           'first' => array(
@@ -746,7 +810,7 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 16,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -754,10 +818,31 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'token' => array(
+        'label' => 'above',
+        'module' => 'double_field',
+        'settings' => array(
+          'first' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => ':&nbsp;',
+          ),
+          'second' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => '',
+          ),
+          'style' => 'inline',
+        ),
+        'type' => 'double_field_unformatted_list',
+        'weight' => 23,
+      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_dcatap_rightsholder',
-    'label' => 'Autore/Titolare del dataset',
+    'label' => 'Titolare del dataset',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -792,46 +877,6 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
       ),
       'type' => 'textfield_&_textfield',
       'weight' => 36,
-    ),
-  );
-
-  // Exported field_instance: 'node-group-field_code_amm'.
-  $field_instances['node-group-field_code_amm'] = array(
-    'bundle' => 'group',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_code_amm',
-    'label' => 'Codice IPA',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 31,
     ),
   );
 
@@ -887,23 +932,22 @@ function datigov_dkan_dcatapit_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Autore/Titolare del dataset');
-  t('Codice IPA');
   t('Descrizione');
   t('Editore');
   t('Email referente');
   t('Frequenza aggiornamento');
   t('Frequenza di aggiornamento');
   t('Groups audience');
+  t('Harvester Reference');
   t('Home page');
   t('Licenza');
-  t('Licenza DCAT');
   t('Lingua');
   t('Nome e cognome del referente');
   t('Referente');
   t('Schema dei metadati');
   t('Telefono referente');
   t('Temi del catalogo ');
+  t('Titolare del dataset');
   t('URL API');
   t('Url delle API utilizzata per le funzioni di harvesting');
 

@@ -221,27 +221,6 @@ function datigov_dkan_dcatapit_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_code_amm'.
-  $field_bases['field_code_amm'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_code_amm',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
   // Exported field_base: 'field_dcatap_frequency'.
   $field_bases['field_dcatap_frequency'] = array(
     'active' => 1,
@@ -376,6 +355,44 @@ function datigov_dkan_dcatapit_field_default_field_bases() {
     'type' => 'double_field',
   );
 
+  // Exported field_base: 'field_harvester_reference'.
+  $field_bases['field_harvester_reference'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_harvester_reference',
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'direction' => 'ASC',
+          'property' => 'title',
+          'type' => 'property',
+        ),
+        'target_bundles' => array(
+          'harvest_source' => 'harvest_source',
+        ),
+      ),
+      'sync' => '',
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_license_abbr'.
   $field_bases['field_license_abbr'] = array(
     'active' => 1,
@@ -404,26 +421,18 @@ function datigov_dkan_dcatapit_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_license_uri',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'link',
+    'module' => 'text',
     'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'rel' => '',
-        'target' => 'default',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 1,
-      'title' => 'optional',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 0,
+      'max_length' => 512,
     ),
     'translatable' => 0,
-    'type' => 'link_field',
+    'type' => 'text',
   );
 
   return $field_bases;

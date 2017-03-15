@@ -19,11 +19,11 @@ function datigov_dkan_dcatapit_ctools_plugin_api($module = NULL, $api = NULL) {
 function datigov_dkan_dcatapit_node_info() {
   $items = array(
     'catalog' => array(
-      'name' => t('Catalog'),
+      'name' => t('Catalogo'),
       'base' => 'node_content',
       'description' => t('Catalogo o fonte dati'),
       'has_title' => '1',
-      'title_label' => t('Titolo'),
+      'title_label' => t('Titolo del catalogo'),
       'help' => '',
     ),
   );
