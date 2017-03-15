@@ -1,0 +1,40 @@
+name = Datigov con bootstrap cdn (CDN)
+description = Portale datigov.
+core = 7.x
+base theme = bootstrap
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Regions
+;;;;;;;;;;;;;;;;;;;;;
+
+regions[top_bar] = 'Top Bar'
+regions[menu_bar] = 'Menu Bar'
+regions[footer_bar] = 'Footer Bar'
+regions[footer_bottom] = 'Footer Bottom'
+regions[ricerca_top] = 'Ricerca Top'
+regions[navigation]     = 'Navigation'
+regions[header]         = 'Top Bar'
+regions[highlighted]    = 'Highlighted'
+regions[help]           = 'Help'
+regions[content]        = 'Content'
+regions[sidebar_first]  = 'Primary'
+regions[sidebar_second] = 'Secondary'
+regions[footer]         = 'Footer'
+regions[page_top]       = 'Page top'
+regions[page_bottom]    = 'Page bottom'
+
+regions[blocco_home] = 'Blocco Home'
+regions[blocco_eventi] = 'Blocco Eventi'
+regions[footer_tematici] = 'Footer Tematici'
+regions[footer_amministrazione] = 'Footer Amministrazione'
+regions[footer_contatti] = 'Footer Contatti'
+regions[footer_privacy] = 'Footer Privacy'
+regions[zona_topic] = 'Zona Topic Home'
+regions[zona_tweets] = 'Zona Tweets Home'
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+stylesheets[all][] = css/dkan-flaticon.css
+stylesheets[all][] = css/style.css
+scripts[] = js/script.js
