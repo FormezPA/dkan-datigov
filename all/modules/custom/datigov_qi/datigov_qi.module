@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Implements hook_help().
+ */
+function datigov_qi_help($path, $arg){
+  switch ($path) {
+    // Main module help for the block module
+    case 'admin/datigov_qi/help':
+    default:
+      return '<p>' . t('The module implements a quality checks for the data and a semi-automatic reporting system.') . '</p>';
+  }   
+}
+

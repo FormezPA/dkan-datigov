@@ -1,0 +1,7 @@
+name = DatiGov DKAN Harvest Quality Improvement
+description = Quality Improvement check for the harvest of Dati.Gov.it
+core = 7.x
+version = 7.x-1.0
+package = DatiGov
+dependencies[] = migrate
+files[] = includes/DatigovQI.inc

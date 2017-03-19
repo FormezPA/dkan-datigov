@@ -1,0 +1,8 @@
+<?php
+
+function datigov_qi_install() {
+  $path_qi = drupal_realpath("public://datigov_qi");
+  if (!file_exists($path_qi)) {
+    drupal_mkdir($path_qi);
+  }
+}
