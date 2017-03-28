@@ -15,8 +15,8 @@ I moduli da installare sono (perlomeno) i seguenti:
 
 ```shell
 drush en 
-	datigov_common \
-	datigov \ # theme
+    datigov_common \
+    datigov \ # theme
     datigov_dkan_dcatapit \ # customizations for DCAT-AP_IT
     datigov_qi \ # quality improvement (optional)
     datigov_harvestlist \ # harvest import/export (optional)
