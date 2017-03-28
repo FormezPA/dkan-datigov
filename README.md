@@ -65,4 +65,5 @@ Questo codice è in dismissione, a favore di una installazione di CKAN. Si sugge
 ## Come contribuire
 
 Per contribuire è possibile usare il [Github Flow](https://guides.github.com/introduction/flow/). Crea un branch, aggiungi i commit e [apri una pull request](https://github.com/FormezPA/dkan-datigov/compare).
-**Nota** Per essere ammissibile il codice deve seguire i [Drupal coding standards](https://www.drupal.org/coding-standards).
+
+**Nota**: per essere ammissibile il codice deve seguire i [Drupal coding standards](https://www.drupal.org/coding-standards).
