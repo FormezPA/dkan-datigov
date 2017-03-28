@@ -62,6 +62,6 @@ Una volta installati i moduli e le features saranno presenti le nuove sezioni Ne
 
 Questo codice è in dismissione, a favore di una installazione di CKAN. Si suggerisce di aprire issue (non-tecniche, ma di progetto) sul [nuovo repository](https://github.com/italia/dati.gov.it/issues).
 
-## Contribuire
+## Come contribuire
 
 Per contribuire è possibile usare il [Github Flow](https://guides.github.com/introduction/flow/). Crea un branch, aggiungi i commit e [apri una pull request](https://github.com/FormezPA/dkan-datigov/compare).
