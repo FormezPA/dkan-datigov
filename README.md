@@ -56,7 +56,32 @@ drush mi --group=datigov_dkan_dcatapit_catalogs
 
 Una volta installati i moduli e le features saranno presenti le nuove sezioni News, le tassonomie di progetto e l'harvester.
 
-@TODO: descrizione dell'importazione delle fonti dell'harvester.
+Per utilizzare l'harvester questi sono i comandi più comuni da shell: 
+
+```Shell
+# Mostra tutte le migrazioni con i metodi classici di migrate
+drush ms
+
+# apparirà quacosa come
+Group: dkan_harvest                                 Totale  Imported  Unprocessed  Stato  Last imported
+ dkan_harvest_migrate_comune_di_arezzo               74      74        0            Idle   2017-03-27 10:08:20
+ dkan_harvest_migrate_comune_di_bari                 57      55        2            Idle   2017-03-22 16:17:12
+
+# Oppure utilizza i metodi di dkan e mostra tutte le fonti di harvesting
+drush dkan-hs 
+
+# Per aggiornare la cache di tutte le fonti
+drush dkan-hc
+
+# Per aggiornare la cache di una fonte specifica (si usa solo il nome senza prefisso)
+drush dkan-hc comune_di_arezzo
+
+# Per eseguire la migrazione invece si usa il nome completo della migrazione:
+drush mi dkan_harvest_migrate_comune_di_bari
+
+```
+
+
 
 ## Supporto
 
